@@ -2,7 +2,7 @@ package eu.javaspecialists.courses.datastructures.ch0_welcome.demo;
 
 import eu.javaspecialists.courses.datastructures.ch5_hashing.Pixel;
 
-public class SimpleHashMap<K, V> {
+public class SimpleIdentityHashMap<K, V> {
     private static class Entry<K, V> {
         final K key;
         V value;
@@ -30,12 +30,12 @@ public class SimpleHashMap<K, V> {
     private Entry<K, V>[] table;
     private int capacity = 1_000_001;
 
-    public SimpleHashMap() {
+    public SimpleIdentityHashMap() {
         table = new Entry[capacity];
     }
 
     private int hash(K key) {
-        return Math.abs(key.hashCode() % capacity);
+        return Math.abs(System.identityHashCode(key) % capacity);
     }
 
     public void put(K key, V value) {
@@ -47,7 +47,7 @@ public class SimpleHashMap<K, V> {
             Entry<K, V> previous = null;
             Entry<K, V> current = table[index];
             while (current != null) {
-                if (current.getKey().equals(key)) {
+                if (current.getKey() == key) {
                     current.setValue(value);
                     return;
                 }
@@ -62,7 +62,7 @@ public class SimpleHashMap<K, V> {
         int index = hash(key);
         Entry<K, V> entry = table[index];
         while (entry != null) {
-            if (entry.getKey().equals(key)) {
+            if (entry.getKey() == key) {
                 return entry.getValue();
             }
             entry = entry.next;
@@ -71,8 +71,8 @@ public class SimpleHashMap<K, V> {
     }
 
     public static void main(String[] args) {
-        SimpleHashMap<String, Integer> map = new SimpleHashMap<>();
-        map.put("One", 1);
+        SimpleIdentityHashMap<String, Integer> map = new SimpleIdentityHashMap<>();
+        map.put(new String("One"), 1);
         map.put("Two", 2);
         map.put("Three", 3);
 
@@ -81,7 +81,7 @@ public class SimpleHashMap<K, V> {
         System.out.println("Three: " + map.get("Three"));
 
         // Demonstrating the generic capability
-        SimpleHashMap<Integer, String> reverseMap = new SimpleHashMap<>();
+        SimpleIdentityHashMap<Integer, String> reverseMap = new SimpleIdentityHashMap<>();
         reverseMap.put(1, "One");
         reverseMap.put(2, "Two");
         reverseMap.put(3, "Three");
@@ -90,29 +90,6 @@ public class SimpleHashMap<K, V> {
         System.out.println("2: " + reverseMap.get(2));
         System.out.println("3: " + reverseMap.get(3));
 
-        Pixel[] pixels = new Pixel[1920 * 1080];
-        for (int x = 0; x < 1920; x++) {
-            for (int y = 0; y < 1080; y++) {
-                pixels[x * 1080 + y] = new Pixel(x, y);
-            }
-        }
-
-        for (int i = 0; i < 100; i++) {
-            testPixelHashing(pixels);
-        }
-    }
-
-    private static void testPixelHashing(Pixel[] pixels) {
-        SimpleHashMap<Pixel, Boolean> pixelMap = new SimpleHashMap<>();
-        long time = System.nanoTime();
-        try {
-            for (Pixel pixel : pixels) {
-                pixelMap.put(pixel, true);
-            }
-        } finally {
-            time = System.nanoTime() - time;
-            System.out.printf("time = %dms%n", (time / 1_000_000));
-        }
     }
 }
 

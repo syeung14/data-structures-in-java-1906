@@ -8,8 +8,7 @@ import java.util.stream.*;
 /**
  * Sorting performance ArrayList vs LinkedList
  * Parallel sorting of ArrayList
- * -XX:+UnlockExperimentalVMOptions -XX:+UseEpsilonGC -Xmx20g -Xms20g
- * -XX:+AlwaysPreTouch -verbose:gc
+ * -XX:+UnlockExperimentalVMOptions -XX:+UseEpsilonGC -Xmx20g -Xms20g -XX:+AlwaysPreTouch -verbose:gc
  */
 public class _3_4_ParallelSorting {
     public static void main(String... args) {

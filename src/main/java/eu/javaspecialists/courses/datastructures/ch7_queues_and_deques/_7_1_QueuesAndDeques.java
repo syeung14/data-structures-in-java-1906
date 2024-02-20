@@ -21,7 +21,7 @@ public class _7_1_QueuesAndDeques {
 
         BlockingQueue<?>[] blockingQueues = { // extends Queue
                 new ArrayBlockingQueue<>(10),
-                new DelayQueue<>(), // Used for scheduled executor service (timer pool)
+                new DelayQueue<>(),
                 new LinkedBlockingQueue<>(),
                 new PriorityBlockingQueue<>(),
                 new SynchronousQueue<>(), // Used for cached thread pool

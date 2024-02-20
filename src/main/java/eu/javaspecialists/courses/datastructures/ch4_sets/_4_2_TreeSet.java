@@ -14,5 +14,9 @@ public class _4_2_TreeSet {
                 Set.of(100, 200, 300, 400, 500, 600, 700, 800));
         System.out.println("integers = " + integers);
 
+        for (int i = 0; i < 1_000_000; i++) {
+            integers.add(i);
+        }
+        // worst case - 2 * log2(n) - worst case 40
     }
 }

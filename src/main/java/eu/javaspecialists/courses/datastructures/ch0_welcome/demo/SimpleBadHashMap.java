@@ -2,7 +2,9 @@ package eu.javaspecialists.courses.datastructures.ch0_welcome.demo;
 
 import eu.javaspecialists.courses.datastructures.ch5_hashing.Pixel;
 
-public class SimpleHashMap<K, V> {
+import java.util.*;
+
+public class SimpleBadHashMap<K, V> {
     private static class Entry<K, V> {
         final K key;
         V value;
@@ -30,7 +32,7 @@ public class SimpleHashMap<K, V> {
     private Entry<K, V>[] table;
     private int capacity = 1_000_001;
 
-    public SimpleHashMap() {
+    public SimpleBadHashMap() {
         table = new Entry[capacity];
     }
 
@@ -43,35 +45,17 @@ public class SimpleHashMap<K, V> {
         Entry<K, V> newEntry = new Entry<>(key, value);
         if (table[index] == null) {
             table[index] = newEntry;
-        } else {
-            Entry<K, V> previous = null;
-            Entry<K, V> current = table[index];
-            while (current != null) {
-                if (current.getKey().equals(key)) {
-                    current.setValue(value);
-                    return;
-                }
-                previous = current;
-                current = current.next;
-            }
-            previous.next = newEntry;
         }
     }
 
     public V get(K key) {
         int index = hash(key);
         Entry<K, V> entry = table[index];
-        while (entry != null) {
-            if (entry.getKey().equals(key)) {
-                return entry.getValue();
-            }
-            entry = entry.next;
-        }
-        return null; // Indicates not found
+        return entry.value;
     }
 
     public static void main(String[] args) {
-        SimpleHashMap<String, Integer> map = new SimpleHashMap<>();
+        SimpleBadHashMap<String, Integer> map = new SimpleBadHashMap<>();
         map.put("One", 1);
         map.put("Two", 2);
         map.put("Three", 3);
@@ -81,7 +65,7 @@ public class SimpleHashMap<K, V> {
         System.out.println("Three: " + map.get("Three"));
 
         // Demonstrating the generic capability
-        SimpleHashMap<Integer, String> reverseMap = new SimpleHashMap<>();
+        SimpleBadHashMap<Integer, String> reverseMap = new SimpleBadHashMap<>();
         reverseMap.put(1, "One");
         reverseMap.put(2, "Two");
         reverseMap.put(3, "Three");
@@ -90,20 +74,14 @@ public class SimpleHashMap<K, V> {
         System.out.println("2: " + reverseMap.get(2));
         System.out.println("3: " + reverseMap.get(3));
 
-        Pixel[] pixels = new Pixel[1920 * 1080];
-        for (int x = 0; x < 1920; x++) {
-            for (int y = 0; y < 1080; y++) {
-                pixels[x * 1080 + y] = new Pixel(x, y);
-            }
-        }
-
-        for (int i = 0; i < 100; i++) {
-            testPixelHashing(pixels);
-        }
+        var badMap = new SimpleBadHashMap<List<Integer>, String>();
+        badMap.put(List.of(0, 31), "0,31");
+        System.out.println(badMap.get(List.of(0, 31)));
+        System.out.println(badMap.get(List.of(1, 0)));
     }
 
     private static void testPixelHashing(Pixel[] pixels) {
-        SimpleHashMap<Pixel, Boolean> pixelMap = new SimpleHashMap<>();
+        SimpleBadHashMap<Pixel, Boolean> pixelMap = new SimpleBadHashMap<>();
         long time = System.nanoTime();
         try {
             for (Pixel pixel : pixels) {
