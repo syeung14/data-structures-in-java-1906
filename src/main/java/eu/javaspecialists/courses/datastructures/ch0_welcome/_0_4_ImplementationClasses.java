@@ -7,11 +7,12 @@ public class _0_4_ImplementationClasses {
     public static void main(String... args) {
         List<?>[] lists = {
                 new ArrayList<>(), // array based list, not thread-safe
-                new CopyOnWriteArrayList<>(), // array based list, thread-safe
+                new CopyOnWriteArrayList<>(), // array based list, thread-safe - synchronized
                 new LinkedList<>(), // linked node based list, not thread-safe. Is also a Deque.
                 new Stack<>(), // Use either ArrayDeque or ConcurrentLinkedDeque
-                new Vector<>(), // array based list, thread-safe
-                List.of(1, 2, 3) // immutable list
+                new Vector<>(), // array based list, thread-safe - synchronized
+                List.of(1, 2, 3), // immutable list
+                Collections.synchronizedList(new ArrayList<>())
         };
 
         Set<?>[] sets = {
@@ -27,12 +28,12 @@ public class _0_4_ImplementationClasses {
         };
 
         Queue<?>[] queues = {
-                new ConcurrentLinkedQueue<>(),
+                new ConcurrentLinkedQueue<>(), // thread-safe - CAS - VarHandle
         };
         BlockingQueue<?>[] blockingQueues = {
-                new ArrayBlockingQueue<>(10), // fixed-length circular array queue
+                new ArrayBlockingQueue<>(10), // fixed-length circular array queue - ReentrantLock
                 new DelayQueue<>(), // scheduled thread pool
-                new LinkedBlockingQueue<>(), // fixed thread pool
+                new LinkedBlockingQueue<>(), // fixed thread pool - ReentrantLock
                 new PriorityBlockingQueue<>(), // not used
                 new SynchronousQueue<>(), // cached thread pool
         };
@@ -63,7 +64,7 @@ public class _0_4_ImplementationClasses {
                 new ConcurrentSkipListMap<>(), // skip-list based set, thread-safe
         };
         ConcurrentMap<?, ?>[] concurrentMaps = {
-                new ConcurrentHashMap<>(), // thread-safe
+                new ConcurrentHashMap<>(), // thread-safe - synchronized
         };
         ConcurrentNavigableMap<?, ?>[] concurrentNavigableMaps = {
                 new ConcurrentSkipListMap<>(), // thread-safe, sorted

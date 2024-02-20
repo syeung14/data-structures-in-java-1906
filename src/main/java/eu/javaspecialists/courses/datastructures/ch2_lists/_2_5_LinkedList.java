@@ -6,5 +6,6 @@ package eu.javaspecialists.courses.datastructures.ch2_lists;
  */
 public class _2_5_LinkedList {
     public static void main(String... args) {
+        // use ArrayDeque for non-threadsafe queue
     }
 }
