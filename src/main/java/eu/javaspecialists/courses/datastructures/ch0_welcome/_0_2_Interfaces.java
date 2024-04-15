@@ -7,12 +7,12 @@ public class _0_2_Interfaces {
     public static void main(String... args) {
         Iterable<?> iterable;
         Collection<?> collection; // extends Iterable
-        SequencedCollection<?> seqCol; // Java 21, extends Collection
+//        SequencedCollection<?> seqCol; // Java 21, extends Collection
 
         List<?> list; // extends SequencedCollection
 
         Set<?> set; // extends Collection
-        SequencedSet<?> seqset; // extends SequencedCollection, Set
+//        SequencedSet<?> seqset; // extends SequencedCollection, Set
         SortedSet<?> sortedSet; // extends SequencedSet, Set
         NavigableSet<?> navigableSet; // extends SortedSet
 
@@ -24,7 +24,7 @@ public class _0_2_Interfaces {
 
 
         Map<?, ?> map;
-        SequencedMap<?, ?> seqMap; // Java 21, extends Map
+//        SequencedMap<?, ?> seqMap; // Java 21, extends Map
 
         SortedMap<?, ?> sortedMap; // extends SequencedMap
         NavigableMap<?, ?> navigableMap; // extends SortedMap

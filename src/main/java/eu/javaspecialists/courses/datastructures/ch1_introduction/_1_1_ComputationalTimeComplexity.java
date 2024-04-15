@@ -6,5 +6,7 @@ package eu.javaspecialists.courses.datastructures.ch1_introduction;
  */
 public class _1_1_ComputationalTimeComplexity {
     public static void main(String... args) {
+
+        List.of
     }
 }
